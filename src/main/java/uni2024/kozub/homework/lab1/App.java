@@ -4,12 +4,19 @@ import java.time.LocalDate;
 
 public class App {
     public static void main(String[] args) {
-        Game game1 = new Game.GameBuilder("CS", Genre.ACTION, 10.67, 9.8, LocalDate.of(2022, 8, 30)).build();
-        Game game2 = new Game.GameBuilder("Craft the World", Genre.STRATEGY, 20.3, 10.0, LocalDate.of(2014, 4, 25)).build();
+        GameBuilder builder = new GameBuilder();
+        builder.setName("CS:GO");
+        builder.setDescription("None");
+        builder.setGenre(Genre.ACTION);
+        builder.setPlatform(Platform.PC);
+        builder.setAgeRestriction(18);
+        builder.setRating(9.8);
+        builder.setPrice(10.5);
+        builder.setReleaseDate(LocalDate.of(2010, 3, 1));
+        Game game1 = builder.build();
 
         User user1 = new User("Kostya", "kostyakozyb@gmail.com", "123456789", "Toporivtsi");
         user1.addGameToWishList(game1);
-        user1.addGameToWishList(game2);
         System.out.println(user1);
     }
 }

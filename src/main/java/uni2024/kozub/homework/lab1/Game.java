@@ -13,15 +13,15 @@ public class Game {
     private Integer ageRestriction;
     private LocalDate releaseDate;
 
-    private Game(GameBuilder gameBuilder) {
-        this.name = gameBuilder.name;
-        this.description = gameBuilder.description;
-        this.genre = gameBuilder.genre;
-        this.platform = gameBuilder.platform;
-        this.price = gameBuilder.price;
-        this.rating = gameBuilder.rating;
-        this.ageRestriction = gameBuilder.ageRestriction;
-        this.releaseDate = gameBuilder.releaseDate;
+    public Game(String name, String description, Genre genre, Platform platform, Double price, Double rating, Integer ageRestriction, LocalDate releaseDate) {
+        this.name = name;
+        this.description = description;
+        this.genre = genre;
+        this.platform = platform;
+        this.price = price;
+        this.rating = rating;
+        this.ageRestriction = ageRestriction;
+        this.releaseDate = releaseDate;
     }
 
     public String getName() {
@@ -56,43 +56,6 @@ public class Game {
         return releaseDate;
     }
 
-    public static class GameBuilder {
-        private String name;
-        private String description;
-        private Genre genre;
-        private Platform platform;
-        private Double price;
-        private Double rating;
-        private Integer ageRestriction;
-        private LocalDate releaseDate;
-
-        public GameBuilder(String name, Genre genre, Double price, Double rating, LocalDate releaseDate){
-            this.name = name;
-            this.genre = genre;
-            this.price = price;
-            this.rating = rating;
-            this.releaseDate = releaseDate;
-        }
-
-        public GameBuilder setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public GameBuilder setPlatform(Platform platform) {
-            this.platform = platform;
-            return this;
-        }
-
-        public GameBuilder setAgeRestriction(Integer ageRestriction) {
-            this.ageRestriction = ageRestriction;
-            return this;
-        }
-
-        public Game build(){
-            return new Game(this);
-        }
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -114,7 +77,7 @@ public class Game {
                ", description='" + description + '\'' +
                ", genre=" + genre +
                ", platform=" + platform +
-               ", price=" + price +
+               ", price=" + price + "$" +
                ", rating=" + rating +
                ", ageRestriction=" + ageRestriction +
                ", releaseDate=" + releaseDate +
