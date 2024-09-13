@@ -98,6 +98,7 @@ public class Variant6 {
      * @param n - array length, a - first value in array, b - second value in array
      * @return array where each value is a sum of all previous
      *
+     *
      */
 
     public int[] arrayTask(int n, int a, int b) {
