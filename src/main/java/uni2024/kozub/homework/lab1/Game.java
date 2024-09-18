@@ -1,5 +1,9 @@
 package uni2024.kozub.homework.lab1;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,9 +15,16 @@ public class Game {
     private Double price;
     private Double rating;
     private Integer ageRestriction;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 
-    public Game(String name, String description, Genre genre, Platform platform, Double price, Double rating, Integer ageRestriction, LocalDate releaseDate) {
+    public Game(){}
+
+    @JsonCreator
+    public Game(@JsonProperty("name") String name, @JsonProperty("description") String description,
+                @JsonProperty("genre") Genre genre, @JsonProperty("platform") Platform platform,
+                @JsonProperty("price") Double price, @JsonProperty("rating") Double rating,
+                @JsonProperty("ageRestriction") Integer ageRestriction, @JsonProperty("releaseDate") LocalDate releaseDate) {
         this.name = name;
         this.description = description;
         this.genre = genre;
