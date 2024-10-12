@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Game {
+public class Game implements Comparable<Game>{
     private String name;
     private String description;
     private Genre genre;
@@ -67,6 +67,10 @@ public class Game {
         return releaseDate;
     }
 
+    @Override
+    public int compareTo(Game other) {
+        return other.getReleaseDate().compareTo(this.getReleaseDate());
+    }
 
     @Override
     public boolean equals(Object o) {

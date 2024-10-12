@@ -8,21 +8,24 @@ import java.util.List;
 import java.util.Objects;
 
 public class User {
-    String name;
-    String email;
-    String password;
-    String address;
-    Role role;
-    List<Game> wishList = new ArrayList<>();
+    private String name;
+    private String email;
+    private String password;
+    private Integer age;
+    private String address;
+    private Role role;
+    private List<Game> wishList = new ArrayList<>();
 
     public User(){}
 
     @JsonCreator
     public User(@JsonProperty("name") String name, @JsonProperty("email") String email,
-                @JsonProperty("password") String password, @JsonProperty("address") String address) {
+                @JsonProperty("password") String password, @JsonProperty("age") Integer age,
+                @JsonProperty("address") String address) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.age = age;
         this.address = address;
         this.role = Role.CUSTOMER;
     }
@@ -57,6 +60,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getAddress() {
