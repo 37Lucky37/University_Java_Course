@@ -1,9 +1,11 @@
 package uni2024.kozub.homework.lab1;
 
+import javax.validation.*;
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class GameBuilder implements Builder{
-
+public class GameBuilder implements Builder {
     private String name;
     private String description;
     private Genre genre;
@@ -12,6 +14,9 @@ public class GameBuilder implements Builder{
     private Double rating;
     private Integer ageRestriction;
     private LocalDate releaseDate;
+
+    private static final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    private static final Validator validator = factory.getValidator();
 
     @Override
     public void setName(String name) {
@@ -53,7 +58,18 @@ public class GameBuilder implements Builder{
         this.releaseDate = releaseDate;
     }
 
-    public Game build(){
-        return new Game(name, description, genre, platform, price, rating, ageRestriction, releaseDate);
+    public Game build() {
+        Game game = new Game(name, description, genre, platform, price, rating, ageRestriction, releaseDate);
+
+        Set<ConstraintViolation<Game>> violations = validator.validate(game);
+
+        if (!violations.isEmpty()) {
+            String errorMessage = violations.stream()
+                    .map(v -> v.getPropertyPath() + " " + v.getMessage())
+                    .collect(Collectors.joining(", "));
+            throw new IllegalArgumentException("Невалідні поля: " + errorMessage);
+        }
+
+        return game;
     }
 }

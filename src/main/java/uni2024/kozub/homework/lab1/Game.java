@@ -4,21 +4,44 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Game implements Comparable<Game>{
+public class Game implements Comparable<Game> {
+    @NotNull(message = "Назва не може бути порожньою")
+    @Size(max = 100, message = "Назва повинна бути не довшою за 100 символів")
     private String name;
+
+    @NotNull(message = "Опис не може бути порожнім")
     private String description;
+
+    @NotNull(message = "Жанр не може бути порожнім")
     private Genre genre;
+
+    @NotNull(message = "Платформа не може бути порожньою")
     private Platform platform;
+
+    @NotNull(message = "Ціна не може бути порожньою")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Ціна має бути більше або дорівнювати 0")
     private Double price;
+
+    @NotNull(message = "Рейтинг не може бути порожнім")
+    @DecimalMin(value = "0.0", message = "Рейтинг має бути не менше 0")
+    @DecimalMax(value = "5.0", message = "Рейтинг має бути не більше 5")
     private Double rating;
+
+    @NotNull(message = "Вікове обмеження не може бути порожнім")
+    @Min(value = 3, message = "Вікове обмеження має бути не менше 3")
+    @Max(value = 18, message = "Вікове обмеження має бути не більше 18")
     private Integer ageRestriction;
+
+    @NotNull(message = "Дата релізу не може бути порожньою")
+    @PastOrPresent(message = "Дата релізу не може бути в майбутньому")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 
-    public Game(){}
+    public Game() {}
 
     @JsonCreator
     public Game(@JsonProperty("name") String name, @JsonProperty("description") String description,
@@ -99,3 +122,6 @@ public class Game implements Comparable<Game>{
                '}';
     }
 }
+
+
+
