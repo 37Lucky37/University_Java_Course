@@ -1,12 +1,66 @@
 package uni2024.kozub.homework.lab1;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
+
+        UserDAO userDAO = new UserDAO();
+//
+//        // Створення нового користувача
+//        User newUser = new User();
+//        newUser.setName("Kostya Kozub");
+//        newUser.setEmail("kk@example.com");
+//        newUser.setPassword("p1234");
+//        newUser.setAge(19);
+//        newUser.setAddress("456 Main St");
+//
+//        userDAO.createUser(newUser);
+//        System.out.println("Користувача створено: " + newUser);
+
+//         Отримання користувача за ID
+
+//        int userId = 3;
+//        User retrievedUser = userDAO.getUserById(userId);
+//        if (retrievedUser != null) {
+//            System.out.println("Отримано користувача за ID: " + retrievedUser);
+//        } else {
+//            System.out.println("Користувача з ID " + userId + " не знайдено.");
+//        }
+//
+        // Оновлення даних користувача
+
+//        User retrievedUser = userDAO.getUserById(3);
+//        if (retrievedUser != null) {
+//            System.out.println("Користувача з ID " + 3 + " знайдено: " + retrievedUser);
+//
+//            // Оновлення користувача
+//            retrievedUser.setAge(20); // Оновлення віку
+//            retrievedUser.setAddress("Chernivtsi"); // Оновлення адреси
+//            userDAO.updateUser(retrievedUser);
+//            System.out.println("Користувача з ID " + retrievedUser.getId() + " оновлено.");
+//        } else {
+//            System.out.println("Користувача з ID " + 3 + " не знайдено.");
+//        }
+//
+      // Отримання всіх користувачів
+
+//        List<User> users = userDAO.getAllUsers();
+//        System.out.println("Список всіх користувачів:");
+//        for (User user : users) {
+//            System.out.println(user);
+//        }
+
+        // Видалення користувача
+
+//        userDAO.deleteUser(2);
+//        System.out.println("Користувача видалено з ID: " + 2);
+
+
+
+        // Lab 4
+
         GameBuilder builder = new GameBuilder();
         builder.setName("CS:GO");
         builder.setDescription("None");
@@ -25,9 +79,29 @@ public class App {
             System.err.println("Помилки валідації: " + e.getMessage());
         }
 
-        User user1 = new User("Kostya", "kostyakozyb@gmail.com", "123456789", 18, "Toporivtsi");
-        user1.addGameToWishList(game1);
-        System.out.println(user1);
+        UserBuilderImpl userBuilder = new UserBuilderImpl();
+        User user1 = null;
+
+        try {
+            user1 = userBuilder
+                    .setId(1) // Ви можете задати ID, якщо потрібно
+                    .setName("K")
+                    .setEmail("kostyakozyb@gmail.com")
+                    .setPassword("123456789")
+                    .setAge(18)
+                    .setAddress("Toporivtsi")
+                    .setRole(Role.CUSTOMER) // Можна задати роль, якщо потрібно
+                    .build();
+
+            // Додаємо гру до списку бажаних
+            if (game1 != null) {
+                user1.addGameToWishList(game1);
+            }
+
+            System.out.println(user1);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Помилки валідації: " + e.getMessage());
+        }
 
         builder.setName("A very long name exceeding the maximum limit of characters allowed in this field"); // порушує @Size
         builder.setDescription(null);
@@ -44,6 +118,7 @@ public class App {
         } catch (IllegalArgumentException e) {
             System.err.println("Помилки валідації: " + e.getMessage());
         }
+
 
 
         // lab working with files
